@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aeon.internal.dao.ErrorLogDAO">
+
+	<insert id="insert" parameterType="SMSLog">
+		INSERT INTO error(
+			groupName,   
+			permanent,   
+			groupId,    
+			name,         
+			description,  
+			id          
+		)
+		VALUES(
+			#{groupName  },
+			#{permanent  },
+			#{groupId    },
+			#{name       }, 
+			#{description}, 
+			#{id         }
+		)
+	</insert>
+
+	<update id="update" parameterType="SMSLog">
+		UPDATE error
+			SET 
+				groupName   = #{groupName  },
+				permanent   = #{permanent  },
+				groupId     = #{groupId    },
+				name        = #{name       },
+				description = #{description}				
+		WHERE id = #{id}
+	</update>
+	
+	<select id="isExist" resultType="Boolean" parameterType="int">
+		SELECT EXISTS(
+			SELECT 1 FROM error
+			WHERE id = #{id}
+		)
+	</select>
+
+</mapper>

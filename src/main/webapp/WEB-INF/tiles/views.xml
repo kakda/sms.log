@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="dashboard/index" extends="default" />
+	
+	<definition name="map/enquiry" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/map/enquiry.jsp" />
+		<put-attribute name="title" value="MAP ENQUIRY" />
+	</definition>
+
+	<definition name="map/add_customer" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/map/add_customer.jsp" />
+		<put-attribute name="title" value="MAP ENQUIRY" />
+	</definition>
+
+	<definition name="map/add_location" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/map/add_location.jsp" />
+		<put-attribute name="title" value="MAP ENQUIRY" />
+	</definition>
+
+	<definition name="log/import" extends="log">
+		<put-attribute name="body" value="/WEB-INF/views/log/import.jsp" />
+		<put-attribute name="title" value="Log Import" />
+	</definition>
+	
+		
+</tiles-definitions>

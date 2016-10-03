@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aeon.internal.dao.SMSLogDAO">
+
+	<insert id="insert" parameterType="SMSLog">
+		INSERT INTO smslog(
+			messageId,
+			bulkId,
+			from,
+			to,
+			text,
+			sentAt,
+			pricePerLookup,
+			pricePerMessage,
+			currency,
+			errorId,
+			statusId
+		)
+		VALUES(
+			#{messageId},
+			#{bulkId},
+			#{from},
+			#{to},
+			#{text},
+			#{sentAt},
+			#{pricePerLookup},
+			#{pricePerMessage},
+			#{currency},
+			#{errorId},
+			#{statusId}
+		)
+	</insert>
+
+	<update id="update" parameterType="SMSLog">
+		UPDATE smslog
+			SET 
+				bulkId          =#{bulkId}          ,
+				from            =#{from}            ,
+				to              =#{to}              ,
+				text            =#{text}            ,
+				sentAt          =#{sentAt}          ,
+				pricePerLookup  =#{pricePerLookup}  ,
+				pricePerMessage =#{pricePerMessage} ,
+				currency        =#{currency}        ,
+				errorId         =#{errorId}         ,
+				statusId        =#{statusId}
+		WHERE messageId = #{messageId}
+	</update>
+	
+	<select id="isExist" resultType="Boolean" parameterType="String">
+		SELECT 1 FROM smslog
+		WHERE messageId = #{messageId} LIMIT 1
+	</select>
+
+</mapper>

@@ -1,0 +1,70 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+	<context:component-scan base-package="com.aeon.internal.controller" />
+	<context:component-scan base-package="com.aeon.internal.controller.ajax" />
+	<context:component-scan base-package="com.aeon.internal.controller.web" />
+	<context:component-scan base-package="com.aeon.internal.service.impl" />
+	<context:component-scan base-package="com.aeon.internal.component" />
+
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/assets/" />
+
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="jsonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		
+		<property name="viewResolvers">
+			<list>
+				<bean id="viewResolver"
+					class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+					<property name="viewClass">
+						<value> org.springframework.web.servlet.view.tiles3.TilesView
+						</value>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
+		id="tilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/layouts.xml</value>
+				<value>/WEB-INF/tiles/views.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+			<constructor-arg>
+				<value>C:/sms.log/files/</value>
+			</constructor-arg>
+	</bean>
+	
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<property name="maxUploadSize" value="5000000000000" />
+	</bean> 
+
+</beans>

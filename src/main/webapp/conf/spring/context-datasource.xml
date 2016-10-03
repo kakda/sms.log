@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd		
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util-4.2.xsd">	
+       
+    <!-- <jee:jndi-lookup jndi-name="postgres/afiskh" id="postgresDB" />  -->
+    <jee:jndi-lookup jndi-name="mysql/log" id="mysqlDB" />
+
+
+<!-- 	<bean id="transactionManagerPG" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="postgresDB"/>
+	</bean> -->
+
+	<bean id="transactionManagerMY" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mysqlDB"/>
+	</bean>
+	
+<!-- 	<bean id="sqlSessionFactoryPG" class="org.mybatis.spring.SqlSessionFactoryBean">
+  		<property name="dataSource" ref="postgresDB" />
+  		<property name="configLocation" value="/conf/sql/global-context.xml" />
+    	<property name="mapperLocations" value="/conf/mapper/postgres/*.xml" />
+  		<property name="typeAliasesPackage" value="com.aeon.internal.model,com.aeon.internal.helper.security" />
+	</bean> -->
+
+	<bean id="sqlSessionFactoryMY" class="org.mybatis.spring.SqlSessionFactoryBean">
+  		<property name="dataSource" ref="mysqlDB" />
+  		<property name="configLocation" value="/conf/sql/global-context.xml" />
+    	<property name="mapperLocations" value="/conf/mapper/mysql/*.xml" />
+  		<property name="typeAliasesPackage" value="infobip.api.model.sms.mt.logs" />
+	</bean>
+
+	
+	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryPG" />
+  		<property name="basePackage" value="com.aeon.internal.dao.postgres" />
+	</bean> -->
+
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryMY" />
+  		<property name="basePackage" value="com.aeon.internal.dao" />
+	</bean>
+	
+</beans>
